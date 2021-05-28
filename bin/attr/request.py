@@ -1,6 +1,3 @@
-import sys
-import os
-
 class RequestAttr:
     def __init__(self):
         self.assay = ""
