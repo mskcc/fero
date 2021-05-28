@@ -2,7 +2,7 @@ from configparser import SafeConfigParser
 import csv
 from pprint import pprint
 import os
-
+from bin.sample import SampleObj
 
 
 def read_csv(fpath, delim="\t"):
@@ -14,11 +14,13 @@ def read_csv(fpath, delim="\t"):
 def process_request_file(fpath):
     csv_reader = read_csv(fpath, ":")
     d = dict()
+    keys = list()
     for i, line in enumerate(csv_reader):
         heading = line[0]
         value = " ".join(line[1:]).lstrip()
         d[heading] = value
-    return d
+        keys.append(heading)
+    return keys, d
 
 
 def process_barcode_file(fpath):
@@ -28,8 +30,9 @@ def process_barcode_file(fpath):
     for line in csv_reader:
         sample_id = line[0]
         barcode = line[1]
-        l.append({sample_id: barcode})
+        l.append({"SAMPLE_ID": sample_id, "BARCODE_INDEX": barcode})
     return header, l
+
 
 def process_mapping_file(fpath):
     """
@@ -63,7 +66,7 @@ def get_files_from_dir(dirpath):
     fastqs = list()
     for f in os.listdir(dirpath):
         if f.endswith(".fastq.gz"):
-            fastqs.append(os.path.join(dirpath,f))
+            fastqs.append(os.path.join(dirpath, f))
     return fastqs
 
 
@@ -108,4 +111,7 @@ if __name__ == "__main__":
     header_mf, data_mf, fastq_paths = process_mapping_file(mapping_file)
     header_dc, data_dc = process_data_clinical_file(data_clinical_file)
     header_bc, data_bc = process_barcode_file(barcode_file)
-    data_rf = process_request_file(request_file)
+    header_rf, data_rf = process_request_file(request_file)
+
+    sample_obj = SampleObj()
+    sample_obj.set_request(header_rf, data_rf)
