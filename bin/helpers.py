@@ -1,5 +1,6 @@
 import csv
 import os
+from json import JSONEncoder
 
 def read_csv(fpath, delim="\t"):
     f = open(fpath, "r")
@@ -90,3 +91,7 @@ def process_data_clinical_file(fpath):
                 d[header[j]] = value
             data.append(d)
     return header, data
+
+class MetadataEncoder(JSONEncoder):
+    def default(self, o):
+        return o.__dict__

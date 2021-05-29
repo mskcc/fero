@@ -23,6 +23,7 @@ class SampleAttr:
 
     def set_fastqs(self, sample_id, fastqs):
         self.fastqs_attr.set_attr(sample_id, fastqs)
+        self.fastqs = self.fastqs_attr.paths
 
     def complete_sample(self):
         # assignment from data clinical
@@ -33,6 +34,7 @@ class SampleAttr:
         self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
         self.metadata["sampleClass"] = self.data_clinical.sample_type
+
         self.metadata["recipe"] = self.data_clinical.gene_panel
         self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
         self.metadata["sampleClass"] = self.data_clinical.sample_class
@@ -44,9 +46,6 @@ class SampleAttr:
         self.metadata["flowCellId"] = self.mapping.fcid
         # assignment from barcode
         self.metadata["barcodeIndex"] = self.barcode_attr.barcode
-        # assignment of fastqs
-        self.metadata["fastqs"] = self.fastqs_attr.paths
-
         if 'normal' in self.metadata['sampleClass'].lower():
             self.metadata["tumorOrNormal"] = "Normal"
         else:

@@ -33,7 +33,7 @@ class DataClinicalAttr:
                  self.cancer_type = val
             if key == "sample_class":
                  self.sample_class = val
-            if key == "speciment_preservation_type":
+            if key == "specimen_preservation_type":
                  self.specimen_preservation_type = val
             if key == "sex":
                  self.sex = val

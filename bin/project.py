@@ -25,3 +25,18 @@ class ProjectObj:
         self.samples = SamplesObj(
             self.mapping_file, self.data_clinical, self.barcode_file
         )
+
+
+    def generate_metadata_json(self):
+        metadata = dict()
+        request_metadata = self.request.metadata
+        for sample_id in self.samples.data:
+            sample = self.samples.data[sample_id]
+            sample_metadata = sample.metadata
+            for fastq in sample.fastqs:
+                if "R1" in fastq:
+                    sample_metadata['R'] = 'R1'
+                else:
+                    sample_metadata['R'] = 'R2'
+                metadata[fastq] = {**request_metadata, **sample_metadata}
+        return metadata
