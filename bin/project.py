@@ -19,6 +19,7 @@ class ProjectObj:
         header, data = process_request_file(self.request_file)
         self.request = RequestAttr()
         self.request.set_attr(header, data)
+        self.request.set_metadata()
 
     def _set_samples(self):
         self.samples = SamplesObj(

@@ -10,6 +10,7 @@ class SampleAttr:
         self.barcode_attr = BarcodeAttr()
         self.mapping = MappingAttr()
         self.fastqs_attr = FastqsAttr()
+        self.metadata = dict()
 
     def set_data_clinical(self, header, data):
         self.data_clinical.set_attr(header, data)
@@ -25,19 +26,28 @@ class SampleAttr:
 
     def complete_sample(self):
         # assignment from data clinical
-        self.patient_id = self.data_clinical.patient_id
-        self.collab_id = self.data_clinical.collab_id
-        self.sample_type = self.data_clinical.sample_type
-        self.gene_panel = self.data_clinical.gene_panel
-        self.cancer_type = self.data_clinical.cancer_type
-        self.sample_class = self.data_clinical.sample_class
-        self.specimen_preservation_type = self.data_clinical.specimen_preservation_type
-        self.sex = self.data_clinical.sex
-        self.tissue_site = self.data_clinical.tissue_site
+        self.metadata['sampleName'] = self.sample_id
+        self.metadata['cmoSampleName'] = self.sample_id
+        self.metadata["patientId"] = self.data_clinical.patient_id
+        self.metadata["sampleId"] = self.data_clinical.collab_id
+        self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
+        self.metadata["externalSampleId"] = self.data_clinical.collab_id
+        self.metadata["sampleClass"] = self.data_clinical.sample_type
+        self.metadata["recipe"] = self.data_clinical.gene_panel
+        self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
+        self.metadata["sampleClass"] = self.data_clinical.sample_class
+        self.metadata["preservation"] = self.data_clinical.specimen_preservation_type
+        self.metadata["sex"] = self.data_clinical.sex
+        self.metadata["tissueLocation"] = self.data_clinical.tissue_site
         # assignment from mapping file
-        self.run_id = self.mapping.run_id
-        self.fcid = self.mapping.fcid
+        self.metadata["runId"] = self.mapping.run_id
+        self.metadata["flowCellId"] = self.mapping.fcid
         # assignment from barcode
-        self.barcode = self.barcode_attr.barcode
+        self.metadata["barcodeIndex"] = self.barcode_attr.barcode
         # assignment of fastqs
-        self.fastqs = self.fastqs_attr.paths
+        self.metadata["fastqs"] = self.fastqs_attr.paths
+
+        if 'normal' in self.metadata['sampleClass'].lower():
+            self.metadata["tumorOrNormal"] = "Normal"
+        else:
+            self.metadata["tumorOrNormal"] = 'Tumor'

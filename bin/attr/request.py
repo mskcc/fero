@@ -15,6 +15,7 @@ class RequestAttr:
         self.species = ""
         self.tumor_type = ""
         self.run_mode= "hiseq" # this is assumed for now
+        self.metadata = dict()
 
     def set_attr(self, keys, data):
         keys_lower = [i.lower() for i in keys]
@@ -22,8 +23,8 @@ class RequestAttr:
             val = data[keys[i]]
             if key == "assay":
                 self.assay = val
-            if key == "designfile":
-                self.design_file = val
+            if key == "rundate":
+                self.run_date = val
             if key == "requestid":
                 self.request_id = val
             if key == "investigator":
@@ -48,6 +49,24 @@ class RequestAttr:
                 self.species = val
             if key == "tumortype":
                 self.tumor_type = val
+
+
+    def set_metadata(self):
+        self.metadata["baitSet"] = self.assay
+        self.metadata["runDate"] = self.run_date
+        self.metadata["requestId"] = self.request_id
+        self.metadata["investigator"] = self.investigator
+        self.metadata["investigatorName"] = self.investigator_name
+        self.metadata["pi"] = self.pi
+        self.metadata["piName"] = self.pi_name
+        self.metadata["projectId"] = self.project_id
+        self.metadata["projectDesc"] = self.project_desc
+        self.metadata["projectTitle"] = self.project_title
+        self.metadata["projectManager"] = self.project_manager
+        self.metadata["projectManagerEmail"] = self.project_manager_email
+        self.metadata["species"] = self.species
+        self.metadata["tumorType"] = self.tumor_type
+        self.metadata["runMode"] = self.run_mode
 
     def __repr__(self):
         return "Request {request_id}: {assay}, {pi}".format(
