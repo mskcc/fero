@@ -17,6 +17,7 @@ class SampleAttr:
         self.igocomplete = True
         self.platform = "Illumina"
         self.sample_origin = "Unknown"
+        self.flow_cell_lanes = []
 
     def set_data_clinical(self, header, data):
         self.data_clinical.set_attr(header, data)
@@ -44,6 +45,8 @@ class SampleAttr:
         self.metadata['sequencingCenter'] = self.sequencing_center
         self.metadata['platform'] = self.platform
         self.metadata['sampleOrigin'] = self.sample_origin
+        self.metadata['flowCellLanes'] = self.flow_cell_lanes
+        self.metadata['igocomplete'] = self.igocomplete
 
         # assignment from data clinical
         self.metadata['sampleName'] = self.sample_id

@@ -7,6 +7,7 @@ class RequestAttr:
         self.investigator_name = ""
         self.pi = ""
         self.pi_name = ""
+        self.pi_email = ""
         self.project_id = ""
         self.project_desc = ""
         self.project_title = ""
@@ -36,6 +37,8 @@ class RequestAttr:
                 self.pi = val
             if key == "pi_name":
                 self.pi_name = val
+            if key == "pi_email":
+                self.pi_email = val
             if key == "projectid":
                 self.project_id = val
             if key == "projectdesc":
@@ -68,6 +71,17 @@ class RequestAttr:
         self.metadata["species"] = self.species
         self.metadata["tumorType"] = self.tumor_type
         self.metadata["runMode"] = self.run_mode
+        # not explicitly defined in request file
+        self.metadata["specimenType"] = self.specimen_type
+        self.metadata["labHeadName"] = self.pi_name
+        self.metadata["piEmail"] = self.pi_email
+        self.metadata["labHeadEmail"] = self.pi_email
+        self.metadata["otherContactEmails"] = self.get_other_emails()
+
+    def get_other_emails(self):
+        # I'm assuming someday there will be more
+        emails = [self.project_manager_email]
+        return ",".join(set(emails))
 
     def get_species(self, val):
         """
