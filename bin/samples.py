@@ -38,3 +38,5 @@ class SamplesObj:
             self.data[sample_id].set_mapping(self.header_mf, i)
         for sample_id in self.fastqs:
             self.data[sample_id].set_fastqs(sample_id, self.fastqs[sample_id])
+        for sample_id in self.sample_ids:
+            self.data[sample_id].complete_sample()
