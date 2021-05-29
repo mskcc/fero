@@ -13,6 +13,7 @@ class RequestAttr:
         self.project_manager = ""
         self.project_manager_email = ""
         self.species = ""
+        self.specimen_type = ""
         self.tumor_type = ""
         self.run_mode= "hiseq" # this is assumed for now
         self.metadata = dict()
@@ -45,11 +46,11 @@ class RequestAttr:
                 self.project_manager = val
             if key == "project_manager_email":
                 self.project_manager_email = val
-            if key == "species":
-                self.species = val
+            if key == "species": # specimen type and species derived from request "species" field
+                self.species = self.get_species(val)
+                self.specimen_type = self.get_specimen_type(val)
             if key == "tumortype":
                 self.tumor_type = val
-
 
     def set_metadata(self):
         self.metadata["recipe"] = self.assay
@@ -67,6 +68,18 @@ class RequestAttr:
         self.metadata["species"] = self.species
         self.metadata["tumorType"] = self.tumor_type
         self.metadata["runMode"] = self.run_mode
+
+    def get_species(self, val):
+        """
+        For now, only return Human
+        """
+        return "Human"
+
+    def get_specimen_type(self, val):
+        if "xenograft" in val.lower():
+            return "PDX"
+        else:
+            return ""
 
     def __repr__(self):
         return "Request {request_id}: {assay}, {pi}".format(
