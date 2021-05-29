@@ -27,7 +27,7 @@ class MappingAttr:
                 if val.count("_") < 2:
                     print("Can't get run id/fcid from %s; exiting." % val)
                     sys.exit(1)
-                self.run_id = "".join(val.split("_")[0:2])
+                self.run_id = "_".join(val.split("_")[0:2])
                 self.fcid = val.split("_")[2]
 
    def __repr__(self):
