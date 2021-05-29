@@ -12,9 +12,11 @@ class DataClinicalAttr:
         self.tissue_site = ""
 
    def set_attr(self, keys, data):
+        """
+            data    dictionary containing one sample
+                    from data clinical file
+        """
         keys_lower = [i.lower() for i in keys]
-        print(keys)
-        print(keys_lower)
         for i,key in enumerate(keys_lower):
             val = data[keys[i]]
             if key == "sample_id":

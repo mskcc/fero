@@ -1,4 +1,5 @@
 import csv
+import os
 
 def read_csv(fpath, delim="\t"):
     f = open(fpath, "r")
@@ -89,4 +90,3 @@ def process_data_clinical_file(fpath):
                 d[header[j]] = value
             data.append(d)
     return header, data
-
