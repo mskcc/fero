@@ -30,9 +30,14 @@ class ProjectObj:
     def generate_metadata_json(self):
         metadata = dict()
         request_metadata = self.request.metadata
+        request_id = request_metadata['requestId']
         for sample_id in self.samples.data:
             sample = self.samples.data[sample_id]
             sample_metadata = sample.metadata
+            if 'pool' in sample_id.lower():
+                sample_metadata['sampleId'] = sample_id + "_" + request_id
+                sample_metadata['sampleName'] = sample_id + "_" + request_id
+                sample_metadata['cmoSampleName'] = sample_id + "_" + request_id
             for fastq in sample.fastqs:
                 if "R1" in fastq:
                     sample_metadata['R'] = 'R1'

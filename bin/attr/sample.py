@@ -26,6 +26,13 @@ class SampleAttr:
         self.fastqs = self.fastqs_attr.paths
 
     def complete_sample(self):
+        """
+            The metadata field names don't always match up
+            with the metadata field names in beagle/argos;
+            contact CMO Informatics if there are questions
+
+            sampleId for example is usually igoId
+        """
         # assignment from data clinical
         self.metadata['sampleName'] = self.sample_id
         self.metadata['cmoSampleName'] = self.sample_id
@@ -34,7 +41,6 @@ class SampleAttr:
         self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
         self.metadata["sampleClass"] = self.data_clinical.sample_type
-
         self.metadata["recipe"] = self.data_clinical.gene_panel
         self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
         self.metadata["sampleClass"] = self.data_clinical.sample_class
@@ -50,3 +56,19 @@ class SampleAttr:
             self.metadata["tumorOrNormal"] = "Normal"
         else:
             self.metadata["tumorOrNormal"] = 'Tumor'
+
+        # correcting for normals
+        if not self.metadata['sampleId']:
+            self.metadata["sampleId"] = self.metadata['cmoSampleName']
+        if not self.metadata['sampleClass']:
+            self.metadata['sampleClass'] = self.metadata['tumorOrNormal']
+        if not self.metadata['preservation']:
+            self.metadata['preservation'] = self.get_preservation_from_fastqs()
+
+
+    def get_preservation_from_fastqs(self):
+        for f in self.fastqs:
+            if 'ffpe' in f.lower():
+                return "FFPE"
+            else:
+                return "Frozen"
