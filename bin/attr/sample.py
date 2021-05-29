@@ -11,6 +11,12 @@ class SampleAttr:
         self.mapping = MappingAttr()
         self.fastqs_attr = FastqsAttr()
         self.metadata = dict()
+        # instantiating default fields
+        self.library_id = ""
+        self.sequencing_center = "GCL@MSK"
+        self.igocomplete = True
+        self.platform = "Illumina"
+        self.sample_origin = "Unknown"
 
     def set_data_clinical(self, header, data):
         self.data_clinical.set_attr(header, data)
@@ -33,6 +39,12 @@ class SampleAttr:
 
             sampleId for example is usually igoId
         """
+        # assign default fields
+        self.metadata['libraryId'] = self.library_id
+        self.metadata['sequencingCenter'] = self.sequencing_center
+        self.metadata['platform'] = self.platform
+        self.metadata['sampleOrigin'] = self.sample_origin
+
         # assignment from data clinical
         self.metadata['sampleName'] = self.sample_id
         self.metadata['cmoSampleName'] = self.sample_id
@@ -41,9 +53,8 @@ class SampleAttr:
         self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
         self.metadata["sampleClass"] = self.data_clinical.sample_type
-        self.metadata["recipe"] = self.data_clinical.gene_panel
+        self.metadata["baitSet"] = self.data_clinical.gene_panel
         self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
-        self.metadata["sampleClass"] = self.data_clinical.sample_class
         self.metadata["preservation"] = self.data_clinical.specimen_preservation_type
         self.metadata["sex"] = self.data_clinical.sex
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site

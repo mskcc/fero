@@ -52,7 +52,7 @@ class RequestAttr:
 
 
     def set_metadata(self):
-        self.metadata["baitSet"] = self.assay
+        self.metadata["recipe"] = self.assay
         self.metadata["runDate"] = self.run_date
         self.metadata["requestId"] = self.request_id
         self.metadata["investigator"] = self.investigator
