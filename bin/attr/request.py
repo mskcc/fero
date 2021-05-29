@@ -14,6 +14,7 @@ class RequestAttr:
         self.project_manager_email = ""
         self.species = ""
         self.tumor_type = ""
+        self.run_mode= "hiseq" # this is assumed for now
 
     def set_attr(self, keys, data):
         keys_lower = [i.lower() for i in keys]
