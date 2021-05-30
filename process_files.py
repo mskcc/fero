@@ -24,7 +24,11 @@ def create_pairing_json(pairing_file, pairing_config):
     with open(pairing_file, 'r') as pair_file:
         for line in pair_file:
             tab = line.strip().split("\t")
-            normal = dict(sample_id = tab[0])
+            normal_sample_id = tab[0]
+            if "pool" in normal_sample_id.lower(): # hack so that the pooled normal ids are made unique
+                normal = dict(sample_id = normal_sample_id + "_" + pairing_config['request_id'])
+            else:
+                normal = dict(sample_id = normal_sample_id)
             tumor = dict(sample_id =tab[1])
             json_data['pairs'].append(dict(tumor= tumor, normal= normal))
         json_data['pipelines'] = pairing_config['pipelines']
@@ -67,6 +71,8 @@ if __name__ == "__main__":
     print("Writing beagle command script upload.sh...")
     open("upload.sh", 'w').write(cmd)
     pairing_config = dict()
+    request_id = project_obj.request.request_id # hack
+    pairing_config['request_id'] = request_id
     pairing_config["pipelines"] = [pipelines]
     pairing_config["pipeline_versions"] = [pipeline_versions]
     pairing_config["name"] = name
