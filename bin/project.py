@@ -31,13 +31,18 @@ class ProjectObj:
         metadata = dict()
         request_metadata = self.request.metadata
         request_id = request_metadata['requestId']
+        recipe = request_metadata['recipe']
         for sample_id in self.samples.data:
             sample = self.samples.data[sample_id]
             sample_metadata = sample.metadata
+            # gotta reformat the sample names because pool normal names are too generic
+            # and can span multiple projects
             if 'pool' in sample_id.lower():
                 sample_metadata['sampleId'] = sample_id + "_" + request_id
                 sample_metadata['sampleName'] = sample_id + "_" + request_id
                 sample_metadata['cmoSampleName'] = sample_id + "_" + request_id
+                sample_metadata['patientId'] = "pooled_normal_patient_id"
+                sample_metadata['baitSet'] = recipe # setting baitSet to recipe value for now; note that samples assign them from data clinical
             for fastq in sample.fastqs:
                 if "R1" in fastq:
                     sample_metadata['R'] = 'R1'
