@@ -68,6 +68,8 @@ class SampleAttr:
         self.metadata["barcodeIndex"] = self.barcode_attr.barcode
         if 'normal' in self.metadata['sampleClass'].lower():
             self.metadata["tumorOrNormal"] = "Normal"
+        elif 'pool' in self.sample_id.lower():
+            self.metadata["tumorOrNormal"] = "Normal"
         else:
             self.metadata["tumorOrNormal"] = 'Tumor'
 
