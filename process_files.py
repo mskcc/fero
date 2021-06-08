@@ -1,6 +1,7 @@
-from configparser import SafeConfigParser
+from configparser import ConfigParser
 import csv
 import os
+import sys
 import json
 from pprint import pprint
 from bin.project import ProjectObj
@@ -38,8 +39,12 @@ def create_pairing_json(pairing_file, pairing_config):
     return json_data
 
 if __name__ == "__main__":
-    parser = SafeConfigParser()
-    parser.read("config.ini")
+    parser = ConfigParser()
+    try:
+        sys.argv[1]
+        parser.read(sys.argv[1])
+    except:
+        parser.read("config.ini")
 
     request_file = parser.get("DATA", "RequestFile")
     data_clinical_file = parser.get("DATA", "DataClinicalFile")
@@ -59,7 +64,10 @@ if __name__ == "__main__":
     cmd = ""
 
     # make metadata jsons for each file
-    json_path = 'metadata_jsons'
+    try:
+        json_path = parser.get("METADATA_CONFIG", "MetadataOutputDir")
+    except:
+        json_path = 'metadata_jsons'
     if not os.path.exists(json_path):
         os.makedirs(json_path)
     for fpath in file_metadata:
@@ -79,5 +87,9 @@ if __name__ == "__main__":
     pairing_config["name"] = name
     pairing_config["output_directory_prefix"] = output_directory_prefix
     pairing = create_pairing_json(pairing_file, pairing_config)
-    print("Writing pairing.json file to submit to Voyager...")
-    json.dump(pairing, open('pairing.json', 'w'))
+    try:
+        pairing_json = parser.get("METADATA_CONFIG", "OutputJsonFileName")
+    except:
+        pairing_json = "pairing.json"
+    print("Writing {pairing_json} file to submit to Voyager...".format(pairing_json=pairing_json))
+    json.dump(pairing, open(pairing_json, 'w'))
