@@ -45,6 +45,7 @@ if __name__ == "__main__":
     data_clinical_file = parser.get("DATA", "DataClinicalFile")
     mapping_file = parser.get("DATA", "MappingFile")
     pairing_file = parser.get("DATA", "PairingFile")
+    patient_file = parser.get("DATA", "PatientFile")
     barcode_file = parser.get("DATA", "BarcodeFile")
     import_file_group = parser.get("BEAGLE_CONFIG", "ImportFileGroup")
     pipelines = parser.get("PAIR_CONFIG", "Pipelines")
@@ -52,7 +53,7 @@ if __name__ == "__main__":
     name = parser.get("PAIR_CONFIG", "RunName")
     output_directory_prefix = parser.get("PAIR_CONFIG", "OutputDirPrefix")
 
-    project_obj = ProjectObj(request_file, pairing_file, mapping_file, data_clinical_file, barcode_file)
+    project_obj = ProjectObj(request_file, patient_file, pairing_file, mapping_file, data_clinical_file, barcode_file)
 
     file_metadata = project_obj.generate_metadata_json()
     cmd = ""

@@ -1,14 +1,15 @@
 from .helpers import (
+    process_patient_file,
     process_mapping_file,
     process_data_clinical_file,
     process_barcode_file,
 )
 from .attr.sample import SampleAttr
-from .attr.data_clinical import DataClinicalAttr
 
 
 class SamplesObj:
-    def __init__(self, mapping_file, data_clinical_file, barcode_file):
+    def __init__(self, patient_file, mapping_file, data_clinical_file, barcode_file):
+        self.header_patient, self.data_patient = process_patient_file(patient_file)
         self.header_mf, self.data_mf, self.fastqs = process_mapping_file(mapping_file)
         self.header_dc, self.data_dc = process_data_clinical_file(data_clinical_file)
         self.header_bc, self.data_bc = process_barcode_file(barcode_file)
@@ -27,6 +28,9 @@ class SamplesObj:
             self.sample_ids.add(i["SAMPLE_ID"])
 
     def _assign_sample_data(self):
+        for i in self.data_patient:
+            sample_id = i['SAMPLE_ID']
+            self.data[sample_id].set_patient(self.header_patient, i)
         for i in self.data_dc:
             sample_id = i['SAMPLE_ID']
             self.data[sample_id].set_data_clinical(self.header_dc, i)

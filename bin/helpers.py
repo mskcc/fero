@@ -31,6 +31,20 @@ def process_barcode_file(fpath):
     return header, l
 
 
+def process_patient_file(fpath):
+    csv_reader = read_csv(fpath)
+    next(csv_reader)
+    data = list()
+    header = ["POOL", "SAMPLE_ID", "COLLAB_ID", "PATIENT_ID", "CLASS", "SAMPLE_TYPE",
+            "INPUT_NG", "LIBRARY_YIELD", "POOL_INPUT", "BAIT_VERSION", "SEX"]
+    for line in csv_reader:
+        d = dict()
+        for j, value in enumerate(line):
+            d[header[j]] = value
+        data.append(d)
+    return header, data
+
+
 def process_mapping_file(fpath):
     """
     fastq_paths return dict of list if files per sample

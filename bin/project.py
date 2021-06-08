@@ -5,9 +5,10 @@ from .helpers import process_request_file
 
 class ProjectObj:
     def __init__(
-        self, request_file, pairing_file, mapping_file, data_clinical, barcode_file
+        self, request_file, patient_file, pairing_file, mapping_file, data_clinical, barcode_file
     ):
         self.request_file = request_file
+        self.patient_file = patient_file
         self.pairing_file = pairing_file
         self.mapping_file = mapping_file
         self.data_clinical = data_clinical
@@ -23,7 +24,7 @@ class ProjectObj:
 
     def _set_samples(self):
         self.samples = SamplesObj(
-            self.mapping_file, self.data_clinical, self.barcode_file
+            self.patient_file, self.mapping_file, self.data_clinical, self.barcode_file
         )
 
 
