@@ -72,6 +72,7 @@ if __name__ == "__main__":
         os.makedirs(json_path)
     for fpath in file_metadata:
         metadata = file_metadata[fpath]
+        print(fpath)
         json_out_path = os.path.join(json_path,os.path.basename(fpath) + ".json")
         json_file = open(json_out_path, 'w')
         json.dump(metadata, json_file)

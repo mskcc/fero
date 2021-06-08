@@ -54,6 +54,7 @@ def process_mapping_file(fpath):
     header = ["_1_col", "SAMPLE_ID", "RUNID_FLOWCELLID", "FILEPATH", "PE"]
     data = list()
     fastq_paths = dict()
+    bam_path = dict()
     for line in csv_reader:
         d = dict()
         for j, value in enumerate(line):
@@ -63,22 +64,29 @@ def process_mapping_file(fpath):
         sample_id = row["SAMPLE_ID"]
         fpath = row["FILEPATH"]
         if sample_id not in fastq_paths:
-            fastq_paths[sample_id] = get_files_from_dir(fpath)
+            fastq_paths[sample_id], bam_path[sample_id] = get_files_from_dir(fpath)
         else:
             print("SAMPLE_ID %s not unique; check mapping file" % sample_id)
             sys.exit(1)
-    return header, data, fastq_paths
+    return header, data, fastq_paths, bam_path
 
 
-def get_files_from_dir(dirpath):
+def get_files_from_dir(fpath):
     """
-    Look for fastqs (files ending in "fastq.gz" in dirpath)
+    Look for fastqs (files ending in "fastq.gz" in fpath)
+
+    If it's a file, assume it's bam
     """
     fastqs = list()
-    for f in os.listdir(dirpath):
-        if f.endswith(".fastq.gz"):
-            fastqs.append(os.path.join(dirpath, f))
-    return fastqs
+    bam = ""
+    if os.path.isdir(fpath):
+        for f in os.listdir(fpath):
+            if f.endswith(".fastq.gz"):
+                fastqs.append(os.path.join(fpath, f))
+    if os.path.isfile(fpath):
+        if fpath.endswith(".bam"):
+            bam = fpath
+    return fastqs, bam
 
 
 def process_pairing_file(fpath):

@@ -3,6 +3,7 @@ from .data_clinical import DataClinicalAttr
 from .barcode import BarcodeAttr
 from .mapping import MappingAttr
 from .fastqs import FastqsAttr
+from .bam import BamAttr
 
 
 class SampleAttr:
@@ -13,6 +14,7 @@ class SampleAttr:
         self.barcode_attr = BarcodeAttr()
         self.mapping = MappingAttr()
         self.fastqs_attr = FastqsAttr()
+        self.bam = BamAttr()
         self.metadata = dict()
         # instantiating default fields
         self._init_metadata_fields()
@@ -39,6 +41,9 @@ class SampleAttr:
         self.fastqs_attr.set_attr(sample_id, fastqs)
         self.fastqs = self.fastqs_attr.paths
 
+    def set_bam(self, sample_id, bam):
+        self.bam.set_attr(sample_id, bam)
+
     def complete_sample(self):
         """
         The metadata field names don't always match up
@@ -56,6 +61,7 @@ class SampleAttr:
         self.metadata["igocomplete"] = self.igocomplete
 
         # assignment from patient
+        self.metadata["sampleId"] = self.patient.collab_id
         self.metadata["patientId"] = self.patient.patient_id
         self.metadata["baitSet"] = self.patient.bait_version
         p_sample_class = self.patient.sample_class.lower()
@@ -70,7 +76,6 @@ class SampleAttr:
         # assignment from data clinical
         self.metadata["sampleName"] = self.sample_id
         self.metadata["cmoSampleName"] = self.sample_id
-        self.metadata["sampleId"] = self.data_clinical.collab_id
         self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
         self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
@@ -108,6 +113,7 @@ class SampleAttr:
             "runId",
             "flowCellId",
             "barcodeIndex",
+            "R"
         ]
         for i in metadata_fields:
             self.metadata[i] = ""

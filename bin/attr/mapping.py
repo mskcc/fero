@@ -25,10 +25,13 @@ class MappingAttr:
                     the mapping file
                 """
                 if val.count("_") < 2:
-                    print("Can't get run id/fcid from %s; exiting." % val)
-                    sys.exit(1)
-                self.run_id = "_".join(val.split("_")[0:2])
-                self.fcid = val.split("_")[2]
+                    print("Can't get run id/fcid from {val} ({sample_id}); assigning defaults".format(val=val,sample_id=self.sample_id))
+                    self.run_id = "DEFAULT_RUNID"
+                    self.fcid = "DEFAULT_FCID"
+#                    sys.exit(1)
+                else:
+                    self.run_id = "_".join(val.split("_")[0:2])
+                    self.fcid = val.split("_")[2]
 
    def __repr__(self):
        return "Mapping {sample_id}: ".format(

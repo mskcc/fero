@@ -43,11 +43,13 @@ class ProjectObj:
                 sample_metadata['sampleName'] = sample_id + "_" + request_id
                 sample_metadata['cmoSampleName'] = sample_id + "_" + request_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
-                sample_metadata['baitSet'] = recipe # setting baitSet to recipe value for now; note that samples assign them from data clinical
-            for fastq in sample.fastqs:
-                if "R1" in fastq:
-                    sample_metadata['R'] = 'R1'
-                else:
-                    sample_metadata['R'] = 'R2'
-                metadata[fastq] = {**request_metadata, **sample_metadata}
+            if sample.fastqs:
+                for fastq in sample.fastqs:
+                    if "R1" in fastq:
+                        sample_metadata['R'] = 'R1'
+                    else:
+                        sample_metadata['R'] = 'R2'
+                    metadata[fastq] = {**request_metadata, **sample_metadata}
+            if sample.bam.path:
+                metadata[sample.bam.path] = {**request_metadata, **sample_metadata}
         return metadata
