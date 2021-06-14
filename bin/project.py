@@ -39,9 +39,10 @@ class ProjectObj:
             # gotta reformat the sample names because pool normal names are too generic
             # and can span multiple projects
             if 'pool' in sample_id.lower():
-                sample_metadata['sampleId'] = sample_id + "_" + request_id
-                sample_metadata['sampleName'] = sample_id + "_" + request_id
-                sample_metadata['cmoSampleName'] = sample_id + "_" + request_id
+                pooled_normal_sample_id = self._generate_pooled_normal_id(sample_id, request_id, sample_metadata)
+                sample_metadata['sampleId'] = pooled_normal_sample_id
+                sample_metadata['sampleName'] = pooled_normal_sample_id
+                sample_metadata['cmoSampleName'] = pooled_normal_sample_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
             if sample.fastqs:
                 for fastq in sample.fastqs:
@@ -53,3 +54,13 @@ class ProjectObj:
             if sample.bam.path:
                 metadata[sample.bam.path] = {**request_metadata, **sample_metadata}
         return metadata
+
+
+    def _generate_pooled_normal_id(self, sample_id, request_id, sample_metadata):
+        pooled_normal_sample_id = sample_id + "_" + request_id
+        if len(pooled_normal_sample_id) > 32:
+            pooled_normal_sample_id = "PN_{preservation}_{request_id}".format(
+                    preservation = sample_metadata['preservation'],
+                    request_id = request_id
+                    )
+        return pooled_normal_sample_id
