@@ -92,7 +92,7 @@ class SampleAttr:
 
     def validate_metadata(self):
         if not self.metadata["oncoTreeCode"]:
-            print("MISSING ONCOTREECODE FOR {sample_id}; exiting".format(
+            print("MISSING ONCOTREECODE FOR {sample_id}.".format(
                     sample_id = self.sample_id
                     )
                 )
