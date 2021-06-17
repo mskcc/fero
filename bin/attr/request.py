@@ -10,6 +10,7 @@ class RequestAttr:
         self.pi_email = ""
         self.project_id = ""
         self.project_desc = ""
+        self.project_name = ""
         self.project_title = ""
         self.project_manager = ""
         self.project_manager_email = ""
@@ -41,6 +42,8 @@ class RequestAttr:
                 self.pi_email = val
             if key == "projectid":
                 self.project_id = val
+            if key == "projectname":
+                self.project_name = val
             if key == "projectdesc":
                 self.project_desc = val
             if key == "projecttitle":
@@ -63,6 +66,7 @@ class RequestAttr:
         self.metadata["investigatorName"] = self.investigator_name
         self.metadata["pi"] = self.pi
         self.metadata["piName"] = self.pi_name
+        self.metadata["projectName"] = self.project_name
         self.metadata["projectId"] = self.project_id
         self.metadata["projectDesc"] = self.project_desc
         self.metadata["projectTitle"] = self.project_title
