@@ -1,3 +1,4 @@
+import sys
 from .patient import PatientAttr
 from .data_clinical import DataClinicalAttr
 from .barcode import BarcodeAttr
@@ -87,6 +88,16 @@ class SampleAttr:
 
         # assignment from barcode
         self.metadata["barcodeIndex"] = self.barcode_attr.barcode
+
+        self.validate_metadata()
+
+    def validate_metadata(self):
+        if not self.metadata["oncoTreeCode"]:
+            print("MISSING ONCOTREECODE FOR {sample_id}; exiting".format(
+                    sample_id = self.sample_id
+                    )
+                )
+            sys.exit(1)
 
     def _init_metadata_fields(self):
         metadata_fields = [
