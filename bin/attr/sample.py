@@ -78,7 +78,7 @@ class SampleAttr:
         self.metadata["cmoSampleName"] = self.sample_id
         self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
-        self.metadata["oncoTreeCode"] = self.data_clinical.cancer_type
+        self.metadata["oncoTreeCode"] = self.data_clinical.oncotree_code
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site
 
         # assignment from mapping file
