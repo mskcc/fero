@@ -72,13 +72,12 @@ if __name__ == "__main__":
         os.makedirs(json_path)
     for fpath in file_metadata:
         metadata = file_metadata[fpath]
-        print(fpath)
         json_out_path = os.path.join(json_path,os.path.basename(fpath) + ".json")
         json_file = open(json_out_path, 'w')
         json.dump(metadata, json_file)
         cmd += make_run_command(fpath, import_file_group, json_out_path)
 
-    print("Writing beagle command script upload.sh...")
+    print("\nWriting beagle command script upload.sh...")
     open("upload.sh", 'w').write(cmd)
     pairing_config = dict()
     request_id = project_obj.request.request_id # hack
@@ -92,5 +91,12 @@ if __name__ == "__main__":
         pairing_json = parser.get("METADATA_CONFIG", "OutputJsonFileName")
     except:
         pairing_json = "pairing.json"
-    print("Writing {pairing_json} file to submit to Voyager...".format(pairing_json=pairing_json))
+    print("\nWriting {pairing_json} file to submit to Voyager...".format(pairing_json=pairing_json))
     json.dump(pairing, open(pairing_json, 'w'))
+
+    print("\nWriting file manifest.txt...")
+    file_manifest = project_obj.generate_file_manifest()
+    with open("file_manifest.txt", 'w') as fm:
+        for line in file_manifest:
+            fm.write(line + "\n")
+
