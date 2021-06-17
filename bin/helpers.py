@@ -83,9 +83,8 @@ def get_files_from_dir(fpath):
         for f in os.listdir(fpath):
             if f.endswith(".fastq.gz"):
                 fastqs.append(os.path.join(fpath, f))
-    if os.path.isfile(fpath):
-        if fpath.endswith(".bam"):
-            bam = fpath
+    else:
+        bam = fpath
     return fastqs, bam
 
 
