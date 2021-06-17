@@ -1,4 +1,3 @@
-import sys
 from .patient import PatientAttr
 from .data_clinical import DataClinicalAttr
 from .barcode import BarcodeAttr
@@ -97,7 +96,6 @@ class SampleAttr:
                     sample_id = self.sample_id
                     )
                 )
-            sys.exit(1)
 
     def _init_metadata_fields(self):
         metadata_fields = [
