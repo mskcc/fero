@@ -5,7 +5,7 @@ class DataClinicalAttr:
         self.collab_id = ""
         self.sample_type = ""
         self.gene_panel = ""
-        self.cancer_type = ""
+        self.oncotree_code = ""
         self.sample_class = ""
         self.specimen_preservation_type = ""
         self.sex = ""
@@ -29,8 +29,8 @@ class DataClinicalAttr:
                  self.sample_type = val
             if key == "gene_panel":
                  self.gene_panel = val
-            if key == "cancer_type":
-                 self.cancer_type = val
+            if key == "oncotree_code":
+                 self.oncotree_code = val
             if key == "sample_class":
                  self.sample_class = val
             if key == "specimen_preservation_type":
