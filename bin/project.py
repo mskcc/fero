@@ -56,6 +56,18 @@ class ProjectObj:
         return metadata
 
 
+    def generate_file_manifest(self):
+        paths = list()
+        for sample_id in self.samples.data:
+            sample = self.samples.data[sample_id]
+            if sample.fastqs:
+                for fastq in sample.fastqs:
+                    paths.append(fastq)
+            if sample.bam.path:
+                paths.append(sample.bam.path)
+        return paths
+
+
     def _generate_pooled_normal_id(self, sample_id, request_id, sample_metadata):
         pooled_normal_sample_id = sample_id + "_" + request_id
         if len(pooled_normal_sample_id) > 32:
