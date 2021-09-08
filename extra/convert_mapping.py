@@ -20,7 +20,7 @@ if __name__ == '__main__':
             if ifs.validate_path(fpath):
                 path_ifs = True
             if path_ifs:
-                path = ifs.convert_str(fpath)
+                path = ifs.convert_to_juno_path(fpath)
             else:
                 path = dmp.convert_str(fpath, sample_name)
             print(s + "\t" + path)
