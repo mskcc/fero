@@ -1,3 +1,10 @@
+#
+# This is needed if legacy bam files are located in a directory other than
+# what's used in current processes
+#
+# BAM_JUNO is the EXPECTED location of the bam files, typically in /juno/res
+#
+
 import sys, os
 
 

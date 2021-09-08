@@ -1,3 +1,11 @@
+#
+# This is required if legacy mapping files are not located in /igo/delivery
+#
+# ARCHIVE_IGO is typically /igo/delivery, the new fastqs delivery directory
+#
+# ARCHIVE_IFS is typically /ifs/archive/..., the location of old legacy fastq delivery files
+#
+
 import sys, os
 
 ARCHIVE_IGO=os.environ['ARCHIVE_IGO']
