@@ -15,7 +15,7 @@ if __name__ == '__main__':
             tab = line.split("\t")
             fpath = tab[3]
             sample_name = tab[1]
-            s = "\t".join(tab[0:2])
+            s = "\t".join(tab[0:3])
             path_ifs = False
             if ifs.validate_path(fpath):
                 path_ifs = True
@@ -23,4 +23,4 @@ if __name__ == '__main__':
                 path = ifs.convert_to_juno_path(fpath)
             else:
                 path = dmp.convert_str(fpath, sample_name)
-            print(s + "\t" + path)
+            print(s + "\t" + path + "\tPE") #PE is always at the end of mapping file
