@@ -86,6 +86,9 @@ if __name__ == "__main__":
     pairing_config["pipeline_versions"] = [pipeline_versions]
     pairing_config["name"] = name
     pairing_config["output_directory_prefix"] = output_directory_prefix
+    pairing_config['labHeadName'] = lab_head_name
+    pairing_config['assay'] = assay
+    pairing_config['investigatorName'] = investigator_name
     pairing = create_pairing_json(pairing_file, pairing_config)
     try:
         pairing_json = parser.get("METADATA_CONFIG", "OutputJsonFileName")
