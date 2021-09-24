@@ -36,9 +36,9 @@ def create_pairing_json(pairing_file, pairing_config):
         json_data['pipeline_versions'] = pairing_config['pipeline_versions']
         json_data['name'] = pairing_config['name']
         json_data['output_directory_prefix'] = pairing_config['output_directory_prefix']
-        json_data['labHeadName'] = pairing_config['lab_head_name']
+        json_data['labHeadName'] = pairing_config['labHeadName']
         json_data['assay'] = pairing_config['assay']
-        json_data['investigatorName'] = pairing_config['investigator_name']
+        json_data['investigatorName'] = pairing_config['investigatorName']
     return json_data
 
 if __name__ == "__main__":
