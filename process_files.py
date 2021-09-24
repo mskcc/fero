@@ -57,6 +57,9 @@ if __name__ == "__main__":
     pipeline_versions = parser.get("PAIR_CONFIG", "PipelineVersions")
     name = parser.get("PAIR_CONFIG", "RunName")
     output_directory_prefix = parser.get("PAIR_CONFIG", "OutputDirPrefix")
+    lab_head_name = parser.get("PAIR_CONFIG", "LabHeadName")
+    investigator_name = parser.get("PAIR_CONFIG", "InvestigatorName")
+    assayy = parser.get("PAIR_CONFIG", "Assay")
 
     project_obj = ProjectObj(request_file, patient_file, pairing_file, mapping_file, data_clinical_file, barcode_file)
 
