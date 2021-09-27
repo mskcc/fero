@@ -17,9 +17,10 @@ def convert_line(line):
     return 
 
 
-def convert_str(s, sample_name):
+def convert_str(s):
     fpath_split = s.split(os.sep)
     end_dir = fpath_split[len(fpath_split)-1]
+    sample_name = fpath_split[-1].replace("Sample_","")
     path_converted = gen_path(end_dir, sample_name)
     return path_converted
 
@@ -50,4 +51,4 @@ if __name__ == '__main__':
         for line in f:
             tab = line.split("\t")
             dmp_path = tab[3]
-            print("\t".join(tab[0:2]) + "\t" +  convert_str(dmp_path, tab[1]))
+            print("\t".join(tab[0:2]) + "\t" +  convert_str(dmp_path))

@@ -27,9 +27,12 @@ if __name__ == '__main__':
                 for paths in igo_files:
                     for path in paths:
                         dest = PATH_FASTQ + subdir + os.sep
-                        os.makedirs(os.path.dirname(dest, exist_ok=True))
-                        shutil.copy(fastq, dest)
+                        os.makedirs(os.path.dirname(dest), exist_ok=True)
+                        shutil.copy(path, dest)
             else: # is dmp bam
-                bam_file = dmp.convert_str(fpath, sample_name)
-                dest = PATH_BAM + sample_name + ".bam"
-                shutil.copy(bam_file, dest)
+                try:
+                    bam_file = dmp.convert_str(fpath)
+                    dest = PATH_BAM + sample_name + ".bam"
+                    shutil.copy(bam_file, dest)
+                except FileNotFoundError:
+                    print("File not found, failed to transfer", bam_file, "to", dest)
