@@ -2,13 +2,13 @@
 # This is needed if legacy bam files are located in a directory other than
 # what's used in current processes
 #
-# BAM_JUNO is the EXPECTED location of the bam files, typically in /juno/res
+# PATH_BAM is the EXPECTED location of the bam files, typically in /juno/res
 #
 
 import sys, os
 
 
-BAM_JUNO = os.environ["BAM_JUNO"]
+PATH_BAM = os.environ["PATH_BAM"]
 
 
 def convert_line(line):
@@ -30,7 +30,7 @@ def gen_path(end_dir, new_sample_name):
         if not check_sample_dir(end_dir):
             raise TypeError
         sample_name = end_dir.split("_")[1]
-        new_path = os.path.join(BAM_JUNO,
+        new_path = os.path.join(PATH_BAM,
                 sample_name[0],
                 sample_name[1],
                 new_sample_name) + ".bam"
