@@ -12,6 +12,7 @@ from access_beagle_endpoint import AccessBeagleEndpoint
 
 ENDPOINT = AccessBeagleEndpoint()
 PATH_BAM = os.environ["PATH_BAM"]
+LOG = open('dmp_convert_err.txt', 'a')
 
 
 def convert_line(line):
@@ -36,14 +37,12 @@ def get_sample_id(s):
 
 
 def retrieve_cmoid_from_path(fpath):
-    o = open('dmp_convert_err.txt', 'a')
     sample_id = get_sample_id(fpath)
     try:
         cmoid = ENDPOINT.get_cmoid(sample_id)
         return cmoid
     except:
-        o.write("Error converting from %s" % sample_id)
-        return ""
+        LOG.write("Error converting from %s\n" % sample_id)
 
 
 def gen_path(end_dir, new_sample_name):
@@ -57,7 +56,7 @@ def gen_path(end_dir, new_sample_name):
                 new_sample_name) + ".bam"
         return(new_path)
     except TypeError:
-        print("Unexpected format:", end_dir)
+        LOG.write("Unexpected format:", end_dir)
 
 
 def check_sample_dir(p):
