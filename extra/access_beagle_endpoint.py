@@ -2,7 +2,7 @@ import requests
 import sys, os
 import json
 
-class AccessBeagleEndpoint
+class AccessBeagleEndpoint:
     def __init__(self):
         username = os.environ['BEAGLE_USER']
         password = os.environ['BEAGLE_PW']
