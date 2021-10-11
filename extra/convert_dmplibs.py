@@ -42,7 +42,7 @@ def retrieve_cmoid_from_path(fpath):
         cmoid = ENDPOINT.get_cmoid(sample_id)
         return cmoid
     except:
-        o.write("Error converting from file %s", fpath)
+        o.write("Error converting from %s" % sample_id)
         return ""
 
 
