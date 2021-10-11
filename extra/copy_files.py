@@ -37,5 +37,3 @@ if __name__ == '__main__':
                     shutil.copy(bam_file, dest)
                 except FileNotFoundError:
                     print("File not found, failed to transfer", bam_file, "to", dest)
-                except IndexError:
-                    print("Could not find CMO sample ID for", sample_name)

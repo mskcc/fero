@@ -36,9 +36,14 @@ def get_sample_id(s):
 
 
 def retrieve_cmoid_from_path(fpath):
+    o = open('dmp_convert_err.txt', 'a')
     sample_id = get_sample_id(fpath)
-    cmoid = ENDPOINT.get_cmoid(sample_id)
-    return cmoid
+    try:
+        cmoid = ENDPOINT.get_cmoid(sample_id)
+        return cmoid
+    except:
+        o.write("Error converting from file %s", fpath)
+        return ""
 
 
 def gen_path(end_dir, new_sample_name):
