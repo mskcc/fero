@@ -7,7 +7,7 @@ class AccessBeagleEndpoint:
         username = os.environ['BEAGLE_USER']
         password = os.environ['BEAGLE_PW']
         BEAGLE_ENDPOINT = os.environ['BEAGLE_ENDPOINT']
-        self.auth = requests.auth.HTTPBasiAuth(username, password)
+        self.auth = requests.auth.HTTPBasicAuth(username, password)
         self.API = BEAGLE_ENDPOINT
 
     def run_url(self, url):
@@ -16,7 +16,8 @@ class AccessBeagleEndpoint:
 
     def get_cmoid(self, sample_id):
         url = "%s/v0/fs/files/?metadata=anon_id:%s" % (self.API, sample_id)
-        return self.run_url(url)
+        data = self.run_url(url)
+        return data['results'][0]['metadata']['external_id'] # there should only be one result
 
 
 if __name__ == "__main__":
