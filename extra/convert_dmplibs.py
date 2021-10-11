@@ -6,6 +6,8 @@
 #
 
 import sys, os
+import requests
+import AccessBeagleEndpoint as endpoint
 
 
 PATH_BAM = os.environ["PATH_BAM"]
@@ -18,11 +20,22 @@ def convert_line(line):
 
 
 def convert_str(s):
+    sample_id = retrieve_cmoid_from_path(s)
+    path_converted = gen_path(end_dir, sample_id)
+    return path_converted
+
+
+def get_sample_id(s):
     fpath_split = s.split(os.sep)
     end_dir = fpath_split[len(fpath_split)-1]
-    sample_name = fpath_split[-1].replace("Sample_","")
-    path_converted = gen_path(end_dir, sample_name)
-    return path_converted
+    sample_id = fpath_split[-1].replace("Sample_","")   
+    return sample_id
+
+
+def retrieve_cmoid_from_path(fpath):
+    sample_id = get_sample_id(fpath)
+    cmoid = endpoint.get_cmoid(sample_id)
+    return cmoid
 
 
 def gen_path(end_dir, new_sample_name):
