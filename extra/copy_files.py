@@ -28,12 +28,14 @@ if __name__ == '__main__':
                     for path in paths:
                         dest = PATH_FASTQ + subdir + os.sep
                         os.makedirs(os.path.dirname(dest), exist_ok=True)
+                        print("Copying from %s -> %s" % (path, dest))
                         shutil.copy(path, dest)
             else: # is dmp bam
                 try:
                     bam_file = dmp.convert_str(fpath)
                     cmoid = dmp.retrieve_cmoid_from_path(fpath)
                     dest = PATH_BAM + cmoid + ".bam"
+                    print("Copying from %s -> %s" % (bam_file, dest))
                     shutil.copy(bam_file, dest)
                 except FileNotFoundError:
                     print("File not found, failed to transfer", bam_file, "to", dest)

@@ -70,8 +70,6 @@ def gen_path(end_dir, new_sample_name):
             raise TypeError
         sample_name = end_dir.split("_")[1]
         new_path = os.path.join(PATH_BAM,
-                sample_name[0],
-                sample_name[1],
                 new_sample_name) + ".bam"
         return(new_path)
     except TypeError:
