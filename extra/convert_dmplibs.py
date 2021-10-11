@@ -11,6 +11,7 @@ from access_beagle_endpoint import AccessBeagleEndpoint
 
 
 ENDPOINT = AccessBeagleEndpoint()
+BAM_JUNO = os.environ["BAM_JUNO"]
 PATH_BAM = os.environ["PATH_BAM"]
 LOG = open('dmp_convert_err.txt', 'a')
 
@@ -29,6 +30,23 @@ def convert_str(s):
     return path_converted
 
 
+# input bam path
+def get_juno_bam_location(s):
+    fpath_split = s.split(os.sep)
+    end_dir = fpath_split[len(fpath_split)-1]
+    try:
+        if not check_sample_dir(end_dir):
+            raise TypeError
+        sample_name = end_dir.split("_")[1]
+        new_path = os.path.join(BAM_JUNO,
+                sample_name[0],
+                sample_name[1],
+                sample_name) + ".bam"
+        return(new_path)
+    except TypeError:
+        LOG.write("Unexpected format: %s\n" % end_dir)
+
+
 def get_sample_id(s):
     fpath_split = s.split(os.sep)
     end_dir = fpath_split[len(fpath_split)-1]
@@ -45,6 +63,7 @@ def retrieve_cmoid_from_path(fpath):
         LOG.write("Error converting from %s\n" % sample_id)
 
 
+# outgoing bam path
 def gen_path(end_dir, new_sample_name):
     try:
         if not check_sample_dir(end_dir):
