@@ -32,8 +32,10 @@ if __name__ == '__main__':
             else: # is dmp bam
                 try:
                     bam_file = dmp.convert_str(fpath)
-                    sample_name = dmp.retrieve_cmoid_from_path(fpath)
-                    dest = PATH_BAM + sample_name + ".bam"
+                    cmoid = dmp.retrieve_cmoid_from_path(fpath)
+                    dest = PATH_BAM + cmoid + ".bam"
                     shutil.copy(bam_file, dest)
                 except FileNotFoundError:
                     print("File not found, failed to transfer", bam_file, "to", dest)
+                except IndexError:
+                    print("Could not find CMO sample ID for", sample_name)
