@@ -10,6 +10,7 @@ import convert_ifs_archive as ifs
 
 if __name__ == '__main__':
     fname = sys.argv[1]
+    oname = open('map_convert_err.txt', 'w')
     with open(fname, 'r') as f:
         for line in f:
             tab = line.split("\t")
@@ -22,5 +23,9 @@ if __name__ == '__main__':
             if path_ifs:
                 path = ifs.convert_to_juno_path(fpath)
             else:
-                path = dmp.convert_str(fpath)
+                try:
+                    path = dmp.convert_str(fpath)
+                except:
+                    o.write("Could not convert DMP str for %s; skipping" % sample_name)
             print(s + "\t" + path + "\tPE") #PE is always at the end of mapping file
+    o.close()
