@@ -21,4 +21,4 @@ class AccessBeagleEndpoint:
 
 
 if __name__ == "__main__":
-    print(AccessBeagleEndpoint.get_cmoid(sys.argv[1]))
+    print(AccessBeagleEndpoint().get_cmoid(sys.argv[1]))
