@@ -56,7 +56,7 @@ def gen_path(end_dir, new_sample_name):
                 new_sample_name) + ".bam"
         return(new_path)
     except TypeError:
-        LOG.write("Unexpected format: %s" % end_dir)
+        LOG.write("Unexpected format: %s\n" % end_dir)
 
 
 def check_sample_dir(p):
