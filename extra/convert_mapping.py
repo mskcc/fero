@@ -30,7 +30,7 @@ if __name__ == '__main__':
         for line in f:
             tab = line.split("\t")
             fpath = tab[3]
-            sample_name = convert_sample_name(tab[1])
+            sample_name = convert_sample_name(tab[1], request_id)
             s = "\t".join(tab[0:3])
             path_ifs = False
             if ifs.validate_path(fpath):
