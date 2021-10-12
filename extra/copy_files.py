@@ -17,6 +17,7 @@ PATH_BAM = os.environ['PATH_BAM']
 if __name__ == '__main__':
     LOG = open('copy.log', 'a')
     fname = sys.argv[1]
+    request_id = sys.argv[2]
     with open(fname, 'r') as f:
         for line in f:
             fpath = line.split("\t")[3]
@@ -27,14 +28,16 @@ if __name__ == '__main__':
                 subdir = fpath.split(os.sep)[-1]
                 for paths in igo_files:
                     for path in paths:
-                        dest = PATH_FASTQ + subdir + os.sep
+                        dest = PATH_FASTQ + subdir
+                        if "pool" in dest.lower():
+                            dest = dest + os.sep + request_id
                         os.makedirs(os.path.dirname(dest), exist_ok=True)
                         print("Copying from %s -> %s" % (path, dest))
                         shutil.copy(path, dest)
             else: # is dmp bam
                 try:
                     bam_file = dmp.get_juno_bam_location(fpath)
-                    dest = PATH_BAM + sample_name + ".bam"
+                    dest = PATH_BAM + os.sep + request_id + os.sep + sample_name + ".bam"
 #                    cmoid = dmp.retrieve_cmoid_from_path(fpath)
 #                    dest = PATH_BAM + cmoid + ".bam"
                     print("Copying from %s -> %s" % (bam_file, dest))

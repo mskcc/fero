@@ -43,6 +43,8 @@ if __name__ == '__main__':
                 path_ifs = True
             if path_ifs:
                 path = ifs.convert_to_juno_path(fpath)
+                if "pool" in path.lower():
+                    path = path + os.sep + request_id
             else:
                 path = dmp.convert_str(fpath)
             if path:
