@@ -46,6 +46,8 @@ if __name__ == '__main__':
                 if "pool" in path.lower():
                     path = path + os.sep + request_id
             else:
-                path = dmp.convert_str(fpath)
+                fpath_split = fpath.split(os.sep)
+                end_dir = fpath_split[len(fpath_split)-1]
+                path = dmp.gen_path(end_dir, sample_name)
             if path:
                 print(s + "\t" + path + "\tPE") #PE is always at the end of mapping file
