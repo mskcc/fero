@@ -9,7 +9,7 @@ import convert_dmplibs as dmp
 import convert_ifs_archive as ifs
 
 
-def convert_sample_name(s,r,p):
+def convert_sample_name(s,r):
     # Mimics behavior in .bin.project
     pn_sample_id = s + "_" + r
     preservation = "FROZEN"
