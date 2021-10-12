@@ -32,7 +32,7 @@ if __name__ == '__main__':
                         shutil.copy(path, dest)
             else: # is dmp bam
                 try:
-                    bam_file = dmp.convert_str(fpath)
+                    bam_file = dmp.get_juno_bam_location(fpath)
                     dest = PATH_BAM + sample_name + ".bam"
 #                    cmoid = dmp.retrieve_cmoid_from_path(fpath)
 #                    dest = PATH_BAM + cmoid + ".bam"
