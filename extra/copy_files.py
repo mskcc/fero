@@ -41,6 +41,6 @@ if __name__ == '__main__':
                     shutil.copy(bam_file, dest)
                 except FileNotFoundError:
                     s = bam_file + " not found, failed to transfer to " + dest
-                    LOG.write(s)
+                    LOG.write(s + "\n")
                     print(s)
     LOG.close()
