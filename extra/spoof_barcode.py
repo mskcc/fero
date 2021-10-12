@@ -15,4 +15,4 @@ if __name__ == '__main__':
             sample_id = tab[1]
             sample_run_id = tab[2]
             bc = spoof_barcode(sample_run_id)
-            print(sample_id, "\t", bc)
+            print(sample_id + "\t" + bc)
