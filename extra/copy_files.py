@@ -31,7 +31,9 @@ if __name__ == '__main__':
                         dest = PATH_FASTQ + subdir
                         if "pool" in dest.lower():
                             dest = dest + os.sep + request_id
-                        os.makedirs(os.path.dirname(dest), exist_ok=True)
+                            os.makedirs(dest, exist_ok=True)
+                        else:
+                            os.makedirs(os.path.dirname(dest), exist_ok=True)
                         print("Copying from %s -> %s" % (path, dest))
                         shutil.copy(path, dest)
             else: # is dmp bam
