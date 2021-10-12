@@ -13,9 +13,12 @@ def convert_sample_name(s,r):
     # Mimics behavior in .bin.project
     if "pool" in s.lower():
         pn_sample_id = s + "_" + r
-        preservation = "FROZEN"
         if "ffpe" in s.lower():
             preservation = "FFPE"
+        elif "frozen" in s.lower():
+            preservation = "FROZEN"
+        else:
+            preservation = "UNK" # unkown
         if len(pn_sample_id) > 32:
             pn_sample_id = "PN_{p}_{r}".format(
                     p = preservation,
@@ -34,7 +37,7 @@ if __name__ == '__main__':
             tab = line.split("\t")
             fpath = tab[3]
             sample_name = convert_sample_name(tab[1], request_id)
-            s = "\t".join(tab[0], sample_name, tab[2])
+            s = "\t".join([tab[0], sample_name, tab[2]])
             path_ifs = False
             if ifs.validate_path(fpath):
                 path_ifs = True
