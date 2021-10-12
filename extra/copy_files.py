@@ -15,6 +15,7 @@ PATH_FASTQ = os.environ['PATH_FASTQ']
 PATH_BAM = os.environ['PATH_BAM']
 
 if __name__ == '__main__':
+    LOG = open('copy.log', 'a')
     fname = sys.argv[1]
     with open(fname, 'r') as f:
         for line in f:
@@ -39,4 +40,7 @@ if __name__ == '__main__':
                     print("Copying from %s -> %s" % (bam_file, dest))
                     shutil.copy(bam_file, dest)
                 except FileNotFoundError:
-                    print("File not found, failed to transfer", bam_file, "to", dest)
+                    s = bam_file + " not found, failed to transfer to " + dest
+                    LOG.write(s)
+                    print(s)
+    LOG.close()
