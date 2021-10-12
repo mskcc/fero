@@ -23,7 +23,8 @@ def convert_line(line):
 
 
 def convert_str(s):
-    sample_id = retrieve_cmoid_from_path(s)
+#    sample_id = retrieve_cmoid_from_path(s)
+    sample_id = get_sample_id(s)
     fpath_split = s.split(os.sep)
     end_dir = fpath_split[len(fpath_split)-1]
     path_converted = gen_path(end_dir, sample_id)
@@ -55,12 +56,14 @@ def get_sample_id(s):
 
 
 def retrieve_cmoid_from_path(fpath):
+    # deactivated for now; using sample_id in convert_str
     sample_id = get_sample_id(fpath)
     try:
         cmoid = ENDPOINT.get_cmoid(sample_id)
         return cmoid
     except:
-        LOG.write("Error converting from %s\n" % sample_id)
+        LOG.write("No cmoid found; using original %s\n" % sample_id)
+        return sample_id
 
 
 # outgoing bam path
