@@ -25,3 +25,7 @@ Before running process_files.py, the following are assumed:
                 Then
                     BARCODE=$(zcat $FASTQ | head -1 | sed 's/.*://')
             - OR make one up as a last resort; the pipelines don't seem to use them
+
+Other notes:
+
+ARGOS QC requires pi_email to be filled
