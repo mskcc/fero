@@ -33,6 +33,10 @@ class ProjectObj:
         request_metadata = self.request.metadata
         request_id = request_metadata['requestId']
         recipe = request_metadata['recipe']
+        if not request_metadata['labHeadEmail']:
+            request_metadata['labHeadEmail'] = labhead_pi_email
+        if not request_metadata['piEmail']:
+            request_metadata['piEmail'] = labhead_pi_email
         for sample_id in self.samples.data:
             sample = self.samples.data[sample_id]
             sample_metadata = sample.metadata
@@ -44,10 +48,6 @@ class ProjectObj:
                 sample_metadata['sampleName'] = pooled_normal_sample_id
                 sample_metadata['cmoSampleName'] = pooled_normal_sample_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
-            if not sample_metadata['labHeadEmail']:
-                sample_metadata['labHeadEmail'] = labhead_pi_email
-            if not sample_metadata['piEmail']:
-                sample_metadata['piEmail'] = labhead_pi_email
             if sample.fastqs:
                 for fastq in sample.fastqs:
                     if "R1" in fastq:
