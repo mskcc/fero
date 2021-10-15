@@ -28,7 +28,7 @@ class ProjectObj:
         )
 
 
-    def generate_metadata_json(self):
+    def generate_metadata_json(self, labhead_pi_email = "solitd@mskcc.org"):
         metadata = dict()
         request_metadata = self.request.metadata
         request_id = request_metadata['requestId']
@@ -44,6 +44,10 @@ class ProjectObj:
                 sample_metadata['sampleName'] = pooled_normal_sample_id
                 sample_metadata['cmoSampleName'] = pooled_normal_sample_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
+            if not sample_metadata['labHeadEmail']:
+                sample_metadata['labHeadEmail'] = labhead_pi_email
+            if not sample_metadata['piEmail']:
+                sample_metadata['piEmail'] = labhead_pi_email
             if sample.fastqs:
                 for fastq in sample.fastqs:
                     if "R1" in fastq:
