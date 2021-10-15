@@ -52,7 +52,7 @@ if __name__ == "__main__":
     try:
         labhead_pi_email = sys.argv[2]
     except:
-        print("No labHeadEmail override provided; using default"
+        print("No labHeadEmail override provided; using default")
         labhead_pi_email = "solitd@mskcc.org"
 
     request_file = parser.get("DATA", "RequestFile")
