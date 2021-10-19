@@ -49,12 +49,6 @@ if __name__ == "__main__":
     except:
         parser.read("config.ini")
 
-    try:
-        labhead_pi_email = sys.argv[2]
-    except:
-        print("No labHeadEmail override provided; using default")
-        labhead_pi_email = "solitd@mskcc.org"
-
     request_file = parser.get("DATA", "RequestFile")
     data_clinical_file = parser.get("DATA", "DataClinicalFile")
     mapping_file = parser.get("DATA", "MappingFile")
@@ -67,12 +61,13 @@ if __name__ == "__main__":
     name = parser.get("PAIR_CONFIG", "RunName")
     output_directory_prefix = parser.get("PAIR_CONFIG", "OutputDirPrefix")
     lab_head_name = parser.get("PAIR_CONFIG", "LabHeadName")
+    lab_head_pi_email = parser.get("PAIR_CONFIG", "LabHeadEmail")
     investigator_name = parser.get("PAIR_CONFIG", "InvestigatorName")
     assay = parser.get("PAIR_CONFIG", "Assay")
 
     project_obj = ProjectObj(request_file, patient_file, pairing_file, mapping_file, data_clinical_file, barcode_file)
 
-    file_metadata = project_obj.generate_metadata_json(labhead_pi_email)
+    file_metadata = project_obj.generate_metadata_json(lab_head_pi_email)
     cmd = ""
 
     # make metadata jsons for each file
