@@ -35,7 +35,9 @@ if __name__ == '__main__':
             else: # is dmp bam
                 try:
                     bam_file = dmp.get_juno_bam_location(fpath)
-                    dest = PATH_BAM + request_id + os.sep + sample_name + ".bam"
+                    path = PATH_BAM + request_id
+                    os.makedirs(path, exist_ok=True)
+                    dest = path + os.sep + sample_name + ".bam"
 #                    cmoid = dmp.retrieve_cmoid_from_path(fpath)
 #                    dest = PATH_BAM + cmoid + ".bam"
                     print("Copying from %s -> %s" % (bam_file, dest))
