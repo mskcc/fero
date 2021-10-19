@@ -31,7 +31,7 @@ if __name__ == '__main__':
                         dest = PATH_FASTQ + subdir + os.sep + request_id
                         os.makedirs(dest, exist_ok=True)
                         print("Copying from %s -> %s" % (path, dest))
-til.copy(path, dest)
+                        shutil.copy(path, dest)
             else: # is dmp bam
                 try:
                     bam_file = dmp.get_juno_bam_location(fpath)
