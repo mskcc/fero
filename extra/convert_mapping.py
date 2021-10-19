@@ -42,12 +42,10 @@ if __name__ == '__main__':
             if ifs.validate_path(fpath):
                 path_ifs = True
             if path_ifs:
-                path = ifs.convert_to_juno_path(fpath)
-                if "pool" in path.lower():
-                    path = path + os.sep + request_id
+                path = ifs.convert_to_juno_path(fpath) + os.sep + request_id
             else:
                 fpath_split = fpath.split(os.sep)
                 end_dir = fpath_split[len(fpath_split)-1]
-                path = dmp.gen_path(end_dir, sample_name)
+                path = dmp.gen_path_w_req(end_dir, request_id, sample_name)
             if path:
                 print(s + "\t" + path + "\tPE") #PE is always at the end of mapping file

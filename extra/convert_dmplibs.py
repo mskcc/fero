@@ -22,12 +22,12 @@ def convert_line(line):
     return 
 
 
-def convert_str(s):
+def convert_str(s, r):
 #    sample_id = retrieve_cmoid_from_path(s)
     sample_id = get_sample_id(s)
     fpath_split = s.split(os.sep)
     end_dir = fpath_split[len(fpath_split)-1]
-    path_converted = gen_path(end_dir, sample_id)
+    path_converted = gen_path_w_req(end_dir, r, sample_id)
     return path_converted
 
 
@@ -67,12 +67,13 @@ def retrieve_cmoid_from_path(fpath):
 
 
 # outgoing bam path
-def gen_path(end_dir, new_sample_name):
+def gen_path_w_req(end_dir, request_id, new_sample_name):
     try:
         if not check_sample_dir(end_dir):
             raise TypeError
         sample_name = end_dir.split("_")[1]
         new_path = os.path.join(PATH_BAM,
+                request_id,
                 new_sample_name) + ".bam"
         return(new_path)
     except TypeError:
@@ -87,8 +88,9 @@ def check_sample_dir(p):
 
 if __name__ == '__main__':
     fname = sys.argv[1]
+    request_id = sys.argv[2]
     with open(fname) as f:
         for line in f:
             tab = line.split("\t")
             dmp_path = tab[3]
-            print("\t".join(tab[0:2]) + "\t" +  convert_str(dmp_path))
+            print("\t".join(tab[0:2]) + "\t" +  convert_str(dmp_path, request_id))
