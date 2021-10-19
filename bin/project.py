@@ -28,11 +28,15 @@ class ProjectObj:
         )
 
 
-    def generate_metadata_json(self):
+    def generate_metadata_json(self, labhead_pi_email = "solitd@mskcc.org"):
         metadata = dict()
         request_metadata = self.request.metadata
         request_id = request_metadata['requestId']
         recipe = request_metadata['recipe']
+        if not request_metadata['labHeadEmail']:
+            request_metadata['labHeadEmail'] = labhead_pi_email
+        if not request_metadata['piEmail']:
+            request_metadata['piEmail'] = labhead_pi_email
         for sample_id in self.samples.data:
             sample = self.samples.data[sample_id]
             sample_metadata = sample.metadata
