@@ -36,13 +36,14 @@ if __name__ == '__main__':
         for line in f:
             tab = line.split("\t")
             fpath = tab[3]
+            run_id = tab[2]
             sample_name = convert_sample_name(tab[1], request_id)
             s = "\t".join([tab[0], sample_name, tab[2]])
             path_ifs = False
             if ifs.validate_path(fpath):
                 path_ifs = True
             if path_ifs:
-                path = ifs.convert_to_juno_path(fpath) + os.sep + request_id
+                path = ifs.convert_to_juno_path(fpath) + os.sep + run_id + os.sep + request_id
             else:
                 fpath_split = fpath.split(os.sep)
                 end_dir = fpath_split[len(fpath_split)-1]

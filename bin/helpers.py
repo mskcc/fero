@@ -55,6 +55,7 @@ def process_mapping_file(fpath):
     data = list()
     fastq_paths = dict()
     bam_path = dict()
+    run_fc_ids = dict()
     for line in csv_reader:
         d = dict()
         for j, value in enumerate(line):
@@ -63,13 +64,22 @@ def process_mapping_file(fpath):
     for row in data:
         sample_id = row["SAMPLE_ID"]
         fpath = row["FILEPATH"]
+        runid_fcid = row["RUNID_FLOWCELLID"]
         if sample_id not in fastq_paths:
             fastq_paths[sample_id], bam_path[sample_id] = get_files_from_dir(fpath)
+            for fp in fastq_paths[sample_id]:
+                run_fc_ids[fp] = runid_fcid
         else:
             print("Merging fastqs for SAMPLE_ID %s" % sample_id)
             fq_paths, b_paths = get_files_from_dir(fpath)
-            fastq_paths[sample_id].append(fq_paths)
-    return header, data, fastq_paths, bam_path
+            fastq_paths[sample_id].extend(fq_paths)
+            for fp in fq_paths:
+                run_fc_ids[fp] = runid_fcid
+        for fp in bam_path[sample_id]:
+            run_fc_ids[fp] = runid_fcid
+
+
+    return header, data, fastq_paths, bam_path, run_fc_ids
 
 
 def get_files_from_dir(fpath):

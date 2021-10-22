@@ -49,12 +49,16 @@ class ProjectObj:
                 sample_metadata['cmoSampleName'] = pooled_normal_sample_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
             if sample.fastqs:
-                for fastq in sample.fastqs:
+                for i,fastq in enumerate(sample.fastqs):
                     if "R1" in fastq:
                         sample_metadata['R'] = 'R1'
                     else:
                         sample_metadata['R'] = 'R2'
                     metadata[fastq] = {**request_metadata, **sample_metadata}
+                    run_id = sample.fastqs_attr.run_id[i]
+                    fcid = sample.fastqs_attr.fcid[i]
+                    metadata[fastq]["runId"] = run_id 
+                    metadata[fastq]["flowCellid"] = fcid
             if sample.bam.path:
                 metadata[sample.bam.path] = {**request_metadata, **sample_metadata}
         return metadata

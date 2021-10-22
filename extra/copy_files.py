@@ -21,6 +21,7 @@ if __name__ == '__main__':
     with open(fname, 'r') as f:
         for line in f:
             fpath = line.split("\t")[3]
+            run_id = line.split("\t")[2]
             sample_name = line.split("\t")[1]
             if ifs.validate_path(fpath):
                 igo_path = ifs.convert_str(fpath)
@@ -28,7 +29,7 @@ if __name__ == '__main__':
                 subdir = fpath.split(os.sep)[-1]
                 for paths in igo_files:
                     for path in paths:
-                        dest = PATH_FASTQ + subdir + os.sep + request_id
+                        dest = PATH_FASTQ + subdir + os.sep + run_id + os.sep + request_id
                         os.makedirs(dest, exist_ok=True)
                         print("Copying from %s -> %s" % (path, dest))
                         shutil.copy(path, dest)

@@ -12,7 +12,6 @@ class SampleAttr:
         self.patient = PatientAttr()
         self.data_clinical = DataClinicalAttr()
         self.barcode_attr = BarcodeAttr()
-        self.mapping = MappingAttr()
         self.fastqs_attr = FastqsAttr()
         self.bam = BamAttr()
         self.metadata = dict()
@@ -34,11 +33,9 @@ class SampleAttr:
     def set_barcode(self, header, data):
         self.barcode_attr.set_attr(header, data)
 
-    def set_mapping(self, header, data):
-        self.mapping.set_attr(header, data)
-
-    def set_fastqs(self, sample_id, fastqs):
-        self.fastqs_attr.set_attr(sample_id, fastqs)
+    def set_fastqs(self, sample_id, fastqs, data):
+        self.fastqs_attr.set_attr(sample_id, fastqs, data)
+        print(self.fastqs_attr)
         self.fastqs = self.fastqs_attr.paths
 
     def set_bam(self, sample_id, bam):
@@ -51,6 +48,8 @@ class SampleAttr:
         contact CMO Informatics if there are questions
 
         sampleId for example is usually igoId
+
+        runid/fcid are fastq attributes
         """
         # assign default fields
         self.metadata["libraryId"] = self.library_id
@@ -80,10 +79,6 @@ class SampleAttr:
         self.metadata["externalSampleId"] = self.data_clinical.collab_id
         self.metadata["oncoTreeCode"] = self.data_clinical.oncotree_code
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site
-
-        # assignment from mapping file
-        self.metadata["runId"] = self.mapping.run_id
-        self.metadata["flowCellId"] = self.mapping.fcid
 
         # assignment from barcode
         self.metadata["barcodeIndex"] = self.barcode_attr.barcode

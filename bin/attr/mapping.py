@@ -3,8 +3,8 @@ import sys
 class MappingAttr:
    def __init__(self):
         self.sample_id = ""
-        self.run_id = ""
-        self.fcid = ""
+        self.run_id = []
+        self.fcid = []
 
    def set_attr(self, keys, data):
         """
@@ -30,8 +30,8 @@ class MappingAttr:
                     self.fcid = "DEFAULT_FCID"
 #                    sys.exit(1)
                 else:
-                    self.run_id = "_".join(val.split("_")[0:2])
-                    self.fcid = val.split("_")[2]
+                    self.run_id.append("_".join(val.split("_")[0:2]))
+                    self.fcid.append(val.split("_")[2])
 
    def __repr__(self):
        return "Mapping {sample_id}: ".format(
