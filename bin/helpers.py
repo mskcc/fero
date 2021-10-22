@@ -66,8 +66,9 @@ def process_mapping_file(fpath):
         if sample_id not in fastq_paths:
             fastq_paths[sample_id], bam_path[sample_id] = get_files_from_dir(fpath)
         else:
-            print("SAMPLE_ID %s not unique; check mapping file" % sample_id)
-            sys.exit(1)
+            print("Merging fastqs for SAMPLE_ID %s" % sample_id)
+            fq_paths, b_paths = get_files_from_dir(fpath)
+            fastq_paths[sample_id].append(fq_paths)
     return header, data, fastq_paths, bam_path
 
 
