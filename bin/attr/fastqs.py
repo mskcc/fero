@@ -44,5 +44,4 @@ class FastqsAttr:
 
 
    def _get_row(self, path, run_fc_ids):
-       print(self.sample_id)
        return run_fc_ids[path]

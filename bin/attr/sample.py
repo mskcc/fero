@@ -35,7 +35,6 @@ class SampleAttr:
 
     def set_fastqs(self, sample_id, fastqs, data):
         self.fastqs_attr.set_attr(sample_id, fastqs, data)
-        print(self.fastqs_attr)
         self.fastqs = self.fastqs_attr.paths
 
     def set_bam(self, sample_id, bam):
