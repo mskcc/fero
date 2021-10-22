@@ -68,7 +68,7 @@ def process_mapping_file(fpath):
         else:
             print("Merging fastqs for SAMPLE_ID %s" % sample_id)
             fq_paths, b_paths = get_files_from_dir(fpath)
-            fastq_paths[sample_id].append(fq_paths)
+            fastq_paths[sample_id].extend(fq_paths)
     return header, data, fastq_paths, bam_path
 
 
