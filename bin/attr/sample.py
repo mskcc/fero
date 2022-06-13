@@ -61,6 +61,7 @@ class SampleAttr:
 
         # assignment from patient
         self.metadata["sampleId"] = self.patient.collab_id
+        self.metadata["sampleName"] = self.patient.collab_id
         self.metadata["cmoPatientId"] = self.patient.patient_id
         self.metadata["baitSet"] = self.patient.bait_version
         p_sample_class = self.patient.sample_class.lower()
@@ -76,8 +77,7 @@ class SampleAttr:
         # assignment from data clinical
         self.metadata["cmoSampleName"] = self.sample_id
         self.metadata["ciTag"] = self.sample_id
-        self.metadata["primaryId"] = self.sample_id # assigning primaryId same as ciTag
-        self.metadata["sampleName"] = self.data_clinical.collab_id
+        self.metadata["primaryId"] = self.sample_id # assigning primaryId same as ciTag 
         self.metadata["oncoTreeCode"] = self.data_clinical.oncotree_code
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site
 
