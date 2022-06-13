@@ -127,15 +127,14 @@ class SampleAttr:
             "cmoSampleName",
             "sampleId",
             "investigatorSampleId",
-            "sampleType"
+            "sampleType",
             "oncotreeCode",
             "tissueLocation",
             "runId",
             "flowCellId",
             "barcodeIndex",
             "R",
-            "sampleAliases",
-            "sampleType"
+            "sampleAliases"
         ]
         for i in metadata_fields:
             self.metadata[i] = ""
