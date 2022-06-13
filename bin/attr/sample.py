@@ -51,12 +51,13 @@ class SampleAttr:
         runid/fcid are fastq attributes
         """
         # assign default fields
-        self.metadata["libraryId"] = self.library_id
+        self.metadata["libraryIgoId"] = self.library_id
         self.metadata["sequencingCenter"] = self.sequencing_center
         self.metadata["platform"] = self.platform
         self.metadata["sampleOrigin"] = self.sample_origin
         self.metadata["flowCellLanes"] = self.flow_cell_lanes
         self.metadata["igocomplete"] = self.igocomplete
+        self.metadata["igoComplete"] = self.igocomplete
 
         # assignment from patient
         self.metadata["sampleId"] = self.patient.collab_id
@@ -67,20 +68,35 @@ class SampleAttr:
             self.metadata["tumorOrNormal"] = "Normal"
         else:
             self.metadata["tumorOrNormal"] = "Tumor"
-        self.metadata["sampleClass"] = self.metadata["tumorOrNormal"]
+        self.metadata["sampleType"] = self.metadata["tumorOrNormal"]
         self.metadata["sex"] = self.patient.sex
         self.metadata["preservation"] = self.patient.sample_type
 
         # assignment from data clinical
-        self.metadata["sampleName"] = self.sample_id
         self.metadata["cmoSampleName"] = self.sample_id
-        self.metadata["investigatorSampleId"] = self.data_clinical.collab_id
-        self.metadata["externalSampleId"] = self.data_clinical.collab_id
+        self.metadata["ciTag"] = self.sample_id
+        self.metadata["sampleName"] = self.data_clinical.collab_id
         self.metadata["oncoTreeCode"] = self.data_clinical.oncotree_code
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site
 
         # assignment from barcode
         self.metadata["barcodeIndex"] = self.barcode_attr.barcode
+
+        # assignment of sampleAliases
+        aliases = list()
+        aliases.append(
+                {
+                    "value": self.data_clinical.collab_id,
+                    "namespace": "investigatorId"
+                    }
+                )
+        aliases.append(
+                {
+                    "value": self.sample_id
+                    "namespace": "igoId"
+                    }
+                )
+        self.metadata["sampleAliases"] = aliases
 
         self.validate_metadata()
 
@@ -93,12 +109,13 @@ class SampleAttr:
 
     def _init_metadata_fields(self):
         metadata_fields = [
-            "libraryId",
+            "libraryIgoId",
             "sequencingCenter",
             "platform",
             "sampleOrigin",
             "flowCellLanes",
             "igocomplete",
+            "igoComplete",
             "patientId",
             "baitSet",
             "tumorOrNormal",
@@ -109,14 +126,15 @@ class SampleAttr:
             "cmoSampleName",
             "sampleId",
             "investigatorSampleId",
-            "externalSampleId",
-            "externalSampleId",
-            "oncoTreeCode",
+            "sampleType"
+            "oncotreeCode",
             "tissueLocation",
             "runId",
             "flowCellId",
             "barcodeIndex",
-            "R"
+            "R",
+            "sampleAliases",
+            "sampleType"
         ]
         for i in metadata_fields:
             self.metadata[i] = ""

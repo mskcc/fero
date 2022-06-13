@@ -59,15 +59,15 @@ class RequestAttr:
                 self.tumor_type = val
 
     def set_metadata(self):
-        self.metadata["recipe"] = self.assay
+        self.metadata["genePanel"] = self.assay
         self.metadata["runDate"] = self.run_date
-        self.metadata["requestId"] = self.request_id
+        self.metadata["igoRequestId"] = self.request_id
         self.metadata["investigator"] = self.investigator
         self.metadata["investigatorName"] = self.investigator_name
         self.metadata["pi"] = self.pi
         self.metadata["piName"] = self.pi_name
         self.metadata["projectName"] = self.project_name
-        self.metadata["projectId"] = self.project_id
+        self.metadata["igoProjectId"] = self.project_id
         self.metadata["projectDesc"] = self.project_desc
         self.metadata["projectTitle"] = self.project_title
         self.metadata["projectManager"] = self.project_manager
