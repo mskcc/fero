@@ -76,6 +76,7 @@ class SampleAttr:
         # assignment from data clinical
         self.metadata["cmoSampleName"] = self.sample_id
         self.metadata["ciTag"] = self.sample_id
+        self.metadata["primaryId"] = self.sample_id # assigning primaryId same as ciTag
         self.metadata["sampleName"] = self.data_clinical.collab_id
         self.metadata["oncoTreeCode"] = self.data_clinical.oncotree_code
         self.metadata["tissueLocation"] = self.data_clinical.tissue_site
