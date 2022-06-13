@@ -69,6 +69,7 @@ class SampleAttr:
         else:
             self.metadata["tumorOrNormal"] = "Tumor"
         self.metadata["sampleType"] = self.metadata["tumorOrNormal"]
+        self.metadata["sampleClass"] = self.metadata["tumorOrNormal"]
         self.metadata["sex"] = self.patient.sex
         self.metadata["preservation"] = self.patient.sample_type
 
