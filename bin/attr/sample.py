@@ -92,7 +92,7 @@ class SampleAttr:
                 )
         aliases.append(
                 {
-                    "value": self.sample_id
+                    "value": self.sample_id,
                     "namespace": "igoId"
                     }
                 )

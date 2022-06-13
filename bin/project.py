@@ -31,8 +31,8 @@ class ProjectObj:
     def generate_metadata_json(self, labhead_pi_email = "solitd@mskcc.org"):
         metadata = dict()
         request_metadata = self.request.metadata
-        request_id = request_metadata['requestId']
-        recipe = request_metadata['recipe']
+        request_id = request_metadata['igoRequestId']
+        recipe = request_metadata['genePanel']
         if not request_metadata['labHeadEmail']:
             request_metadata['labHeadEmail'] = labhead_pi_email
         if not request_metadata['piEmail']:
@@ -46,6 +46,7 @@ class ProjectObj:
                 pooled_normal_sample_id = self._generate_pooled_normal_id(sample_id, request_id, sample_metadata)
                 sample_metadata['sampleId'] = pooled_normal_sample_id
                 sample_metadata['sampleName'] = pooled_normal_sample_id
+                sample_metadata['ciTag'] = pooled_normal_sample_id
                 sample_metadata['cmoSampleName'] = pooled_normal_sample_id
                 sample_metadata['patientId'] = "pooled_normal_patient_id"
             if sample.fastqs:
