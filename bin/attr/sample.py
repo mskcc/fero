@@ -61,7 +61,7 @@ class SampleAttr:
 
         # assignment from patient
         self.metadata["sampleId"] = self.patient.collab_id
-        self.metadata["patientId"] = self.patient.patient_id
+        self.metadata["cmoPatientId"] = self.patient.patient_id
         self.metadata["baitSet"] = self.patient.bait_version
         p_sample_class = self.patient.sample_class.lower()
         if "normal" in p_sample_class:
@@ -118,7 +118,7 @@ class SampleAttr:
             "flowCellLanes",
             "igocomplete",
             "igoComplete",
-            "patientId",
+            "cmoPatientId",
             "baitSet",
             "tumorOrNormal",
             "sampleClass",
